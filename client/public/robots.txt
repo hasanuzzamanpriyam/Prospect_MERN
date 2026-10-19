@@ -1,0 +1,22 @@
+# Robots.txt for PROSPCT
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /payment/
+Disallow: /settings/
+Disallow: /dashboard/
+Disallow: /redeem
+Disallow: /.env
+Disallow: /.git
+Disallow: /*.log
+Disallow: /*.json
+Disallow: /*.md
+Disallow: /*.sh
+
+# Allow static assets
+Allow: /assets/
+Allow: /images/
+Allow: /uploads/
+Allow: /favicon.ico
+
+Sitemap: https://app.prospct.io/sitemap.xml

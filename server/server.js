@@ -13,6 +13,7 @@ const bodyParser = require("body-parser");
 const globalErrorHandler = require("./middleware/globalErrorHandler");
 
 const connectDB = require("./config/db");
+const mongoose = require("mongoose");
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
@@ -55,12 +56,23 @@ const PORT = 4000;
 // ADD THIS LINE HERE
 app.set('trust proxy', 1);
 /* -------------------- DB & System Settings -------------------- */
-connectDB().then(() => {
-  // observeUserCredits(); // Start observing user credit changes
-  loadSettingsToCache()
-    .catch((err) => console.error("Failed to load system settings:", err));
+let serverReady = false;
 
-});
+async function initializeApp() {
+  try {
+    await connectDB();
+    // Wait for Mongoose to finish registering all models
+    await new Promise(resolve => setTimeout(resolve, 100));
+    await loadSettingsToCache();
+    serverReady = true;
+    console.log("✅ Application initialized successfully");
+  } catch (err) {
+    console.error("❌ Failed to initialize application:", err);
+    serverReady = false;
+  }
+}
+
+initializeApp();
 
 /* -------------------- Validate Critical Environment Variables -------------------- */
 const { getKey } = require("./utils/encryption");
@@ -182,6 +194,25 @@ app.use("/api/companies", companyRoutes);
 
 /* -------------------- Root -------------------- */
 app.get("/", (req, res) => res.send("Server is working fine."));
+
+/* -------------------- Health Check -------------------- */
+app.get("/health", (req, res) => {
+  const dbState = mongoose.connection.readyState; // 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
+  const status = serverReady && dbState === 1 ? "healthy" : "degraded";
+  const statusCode = status === "healthy" ? 200 : 503;
+  
+  res.status(statusCode).json({
+    status,
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    database: {
+      state: ["disconnected", "connected", "connecting", "disconnecting"][dbState],
+      ready: dbState === 1,
+    },
+    memory: process.memoryUsage(),
+    version: process.version,
+  });
+});
 
 /* -------------------- Static Uploads -------------------- */
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

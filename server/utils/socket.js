@@ -4,10 +4,21 @@ let io;
 
 // Initialize Socket.io and export it for use in other parts of the app
 const initSocket = (server) => {
+  const corsOrigins = process.env.ALLOWED_ORIGINS
+    ? process.env.ALLOWED_ORIGINS.split(",")
+    : [
+        "https://app.prospct.io",
+        "https://get.prospct.io",
+        "https://prospct.lovable.app",
+        "http://localhost:5173",
+        "http://localhost:5174",
+      ];
+
   io = socketIo(server, {
     cors: {
-      origin: "*", // Allow requests from any origin (adjust this as needed)
+      origin: corsOrigins,
       methods: ["GET", "POST"],
+      credentials: true,
     },
   });
 

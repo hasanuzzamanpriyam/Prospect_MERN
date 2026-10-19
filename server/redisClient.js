@@ -89,14 +89,24 @@ const safeClient = {
             console.error('Redis set error:', err.message);
         }
     },
-    keys: async (...args) => {
+    // SCAN-based replacement for KEYS - non-blocking
+    scanKeys: async (pattern) => {
         if (!client.isOpen || hasGivenUp) return [];
         try {
-            return await client.keys(...args);
+            const keys = [];
+            for await (const key of client.scanIterator({ MATCH: pattern, COUNT: 100 })) {
+                keys.push(key);
+            }
+            return keys;
         } catch (err) {
-            console.error('Redis keys error:', err.message);
+            console.error('Redis scanKeys error:', err.message);
             return [];
         }
+    },
+    // Deprecated: use scanKeys instead
+    keys: async (...args) => {
+        console.warn('[REDIS] keys() is deprecated, use scanKeys() instead');
+        return safeClient.scanKeys(args[0]);
     },
     del: async (...args) => {
         if (!client.isOpen || hasGivenUp) return;
