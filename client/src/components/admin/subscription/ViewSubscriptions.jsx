@@ -51,7 +51,7 @@ export default function Subscription() {
       setTotalPages(response.data.totalPages || 1);
       setError("");
     } catch (err) {
-      // console.error("Error fetching subscriptions:", err);
+      
       setError(
         err?.response?.data?.message ||
         err?.message ||

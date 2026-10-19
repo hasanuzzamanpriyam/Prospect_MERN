@@ -25,7 +25,7 @@ const logout = async () => {
 
     return response; // Return the response from the logout request
   } catch (error) {
-    // console.error("Logout failed:", error);
+    
     throw error; // Throw the error to be handled by the caller
   }
 };

@@ -145,7 +145,7 @@ const useCheckout = ({
         });
       }
     } catch (err) {
-      // console.error("[FastSpring] Secure checkout failed:", err);
+      
       const msg = err?.response?.data?.message || err.message || "FastSpring checkout failed";
       toast.error(msg);
       addNotification({

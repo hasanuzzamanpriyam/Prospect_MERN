@@ -99,7 +99,7 @@ export default function ViewPlans() {
       setUsers(allUsers);
       setError("");
     } catch (err) {
-      // console.error("Error fetching plan data:", err);
+      
       setError(
         err?.response?.data?.message ||
         err?.message ||

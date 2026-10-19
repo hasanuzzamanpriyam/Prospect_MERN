@@ -22,7 +22,7 @@ export const fetchItemDetails = async (itemIds) => {
 
     return data;
   } catch (error) {
-    // console.error("Error fetching item details:", error);
+    
     throw error;
   }
 };

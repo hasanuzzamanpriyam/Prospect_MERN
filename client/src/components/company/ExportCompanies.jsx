@@ -80,7 +80,7 @@ const ExportCompanies = () => {
     try {
       const quantity = checkedItems.length;
       if (!quantity || quantity <= 0) {
-        // console.error("[ExportCompanies] Invalid quantity:", quantity);
+        
         toast.error("No items selected for export");
         setIsExporting(false);
         return;
@@ -187,7 +187,7 @@ const ExportCompanies = () => {
       clearTimeout(timeoutId);
       if (!response.ok) {
         const errorText = await response.text();
-        // console.error("[ExportCompanies] Export failed:", response.status, errorText);
+        
         throw new Error(`Export failed: ${response.status}`);
       }
       const blob = await response.blob();

@@ -21,7 +21,7 @@ export const PAYMENT_REDIRECT_MODES = {
  */
 export const openPaymentUrl = (url, mode = PAYMENT_REDIRECT_MODES.SAME_TAB, options = {}) => {
   if (!url) {
-    // console.error("[paymentWindowService] No URL provided");
+    
     return null;
   }
 
@@ -64,7 +64,7 @@ export const openPaymentUrl = (url, mode = PAYMENT_REDIRECT_MODES.SAME_TAB, opti
     }
 
     default:
-      // console.warn(`[paymentWindowService] Unknown mode '${mode}', using same-tab`);
+      
       window.location.href = url;
       return null;
   }
@@ -79,7 +79,7 @@ export const openPaymentUrl = (url, mode = PAYMENT_REDIRECT_MODES.SAME_TAB, opti
  */
 export const monitorPopup = (popupWindow, onClose, checkInterval = 500) => {
   if (!popupWindow) {
-    // console.warn("[paymentWindowService] No popup window to monitor");
+    
     return () => {};
   }
 

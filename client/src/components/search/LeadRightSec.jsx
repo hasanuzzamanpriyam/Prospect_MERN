@@ -310,7 +310,7 @@ const LeadRightSec = ({
         localStorage.setItem(LOCAL_STORAGE_EXCLUDED_KEY, JSON.stringify(excludedFilters));
         localStorage.setItem(LOCAL_STORAGE_COLUMNS_KEY, JSON.stringify(visibleColumns));
       } catch (error) {
-        // console.warn("Failed to persist filters to localStorage", error);
+        
       }
 
       // Count total search filters applied (excluding layout/relevance settings)
@@ -349,7 +349,7 @@ const LeadRightSec = ({
           if (recentSearchTimerRef.current) clearTimeout(recentSearchTimerRef.current);
           recentSearchTimerRef.current = setTimeout(() => {
             saveRecentSearch(filters, excludedFilters).catch((error) => {
-              // console.error("Failed to save recent search:", error);
+              
             });
           }, 1500);
 
@@ -363,7 +363,7 @@ const LeadRightSec = ({
                 window.history.replaceState(null, '', result.url);
               }
             } catch (error) {
-              // console.warn("Failed to update URL with short link:", error);
+              
             }
           }, 2000);
         } else {
@@ -402,7 +402,7 @@ const LeadRightSec = ({
         }
       })
       .catch((error) => {
-        // console.error("Failed to fetch shared state:", error);
+        
       });
   }, [searchParams, setInitialFilters, setVisibleColumns]);
 
@@ -454,7 +454,7 @@ const LeadRightSec = ({
         setVisibleColumns(parsedColumns);
       }
     } catch (error) {
-      // console.warn("Failed to restore persisted filters:", error);
+      
     }
   }, [searchParams, setInitialFilters, setVisibleColumns]);
 
@@ -542,7 +542,7 @@ const LeadRightSec = ({
       );
 
       if (saveRes.data?.skipped > 0) {
-        // console.warn("[REVEAL] Contact not found in DB, save skipped:", id);
+        
       }
 
       // 2. Deduct credits AFTER save succeeds — each type independent

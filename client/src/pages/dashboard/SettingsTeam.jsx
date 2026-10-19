@@ -69,7 +69,7 @@ const SettingsTeam = () => {
         setMembers([]);
       }
     } catch (err) {
-      // console.error("Failed to fetch team:", err);
+      
     } finally {
       setLoading(false);
     }

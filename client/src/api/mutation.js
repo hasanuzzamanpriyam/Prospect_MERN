@@ -19,7 +19,7 @@ export const registerUser = async (user) => {
     }
     return response.data;
   } catch (error) {
-    // console.error("Error:", error);
+    
     throw error;
   }
 };
@@ -90,7 +90,7 @@ export const deductCredits = async ({ type, quantity }) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error deducting credits:", error);
+    
     // Preserve the full error response for the component to handle
     const enhancedError = new Error(
       error.response?.data?.message || "Error deducting credits."
@@ -130,7 +130,7 @@ export const saveList = async (listName, items = [], folderId = null, type = "co
 
     return response.data;
   } catch (error) {
-    // console.error("Error:", error);
+    
     throw error;
   }
 };
@@ -161,7 +161,7 @@ export const updateList = async (listId, updates) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error updating list:", error);
+    
     throw error;
   }
 };
@@ -188,7 +188,7 @@ export const deleteList = async (listId) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error deleting list:", error);
+    
     throw error;
   }
 };
@@ -219,7 +219,7 @@ export const createFolder = async (folderName) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error creating folder:", error);
+    
     throw error;
   }
 };
@@ -246,7 +246,7 @@ export const deleteFolder = async (folderId) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error deleting folder:", error);
+    
     throw error;
   }
 };
@@ -271,7 +271,7 @@ export const saveItemToList = async (itemIds, listIds) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error:", error);
+    
     throw error;
   }
 };
@@ -296,7 +296,7 @@ export const saveSearchShareState = async (filters, excludedFilters, visibleColu
 
     return response.data;
   } catch (error) {
-    // console.error("Error:", error);
+    
     throw error;
   }
 };
@@ -312,7 +312,7 @@ export const getSharedSearchState = async (shareId) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error loading shared search state:", error);
+    
     throw error;
   }
 };
@@ -332,7 +332,7 @@ export const getCurrentUser = async () => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error fetching current user:", error);
+    
     throw error;
   }
 };
@@ -352,7 +352,7 @@ export const getUsers = async (page = 1, limit = 10) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error fetching users:", error);
+    
     throw error;
   }
 };
@@ -376,7 +376,7 @@ export const updateUserProfile = async (userId, userData) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error updating user profile:", error);
+    
     throw error;
   }
 };
@@ -398,7 +398,7 @@ export const uploadProfilePicture = async (file, userId) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error uploading profile picture:", error);
+    
     throw error;
   }
 };
@@ -420,7 +420,7 @@ export const deleteUserAccount = async (userId) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error deleting user account:", error);
+    
     throw error;
   }
 };
@@ -444,7 +444,7 @@ export const forgotPassword = async (email) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error requesting password reset:", error);
+    
     throw error;
   }
 };
@@ -468,7 +468,7 @@ export const resetPassword = async (token, newPassword) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error resetting password:", error);
+    
     throw error;
   }
 };
@@ -494,7 +494,7 @@ export const setPassword = async (password, confirmPassword, otp) => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error setting password:", error);
+    
     throw error;
   }
 };
@@ -520,7 +520,7 @@ export const requestSetPasswordOtp = async () => {
 
     return response.data;
   } catch (error) {
-    // console.error("Error requesting set-password OTP:", error);
+    
     throw error;
   }
 };

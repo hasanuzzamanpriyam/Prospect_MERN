@@ -62,7 +62,7 @@ const Dashboard = () => {
       setRecentSearchesAll(recentRes.data);
       setSavedSearchesAll(savedRes.data);
     } catch (err) {
-      // console.error("Failed to fetch searches:", err);
+      
       throw err; // Re-throw to handle in consolidated error handler
     }
   };
@@ -77,7 +77,7 @@ const Dashboard = () => {
       });
       setLists(res.data || []);
     } catch (err) {
-      // console.error("Failed to fetch lists:", err);
+      
       throw err; // Re-throw to handle in consolidated error handler
     }
   };
@@ -168,7 +168,7 @@ const Dashboard = () => {
                 setLastListUpdate(Date.now());
                 await fetchLists();
               } catch (err) {
-                // console.error("Failed to delete list:", err);
+                
 
                 const message =
                   err.response?.data?.message ||
@@ -210,7 +210,7 @@ const Dashboard = () => {
 
       setTeams(teamsRes.data || []);
     } catch (err) {
-      // console.error("Failed to fetch teams:", err);
+      
       throw err; // Re-throw to handle in consolidated error handler
     }
   };
@@ -226,7 +226,7 @@ const Dashboard = () => {
           fetchPendingVouchers(),
         ]);
       } catch (err) {
-        // console.error("Failed to load dashboard data:", err);
+        
         // Show a single consolidated toast instead of multiple toasts
         toast.error("Failed to load dashboard data. Please refresh the page.");
       }
@@ -277,7 +277,7 @@ const Dashboard = () => {
       toast.success("Team member removed successfully");
       fetchTeams();
     } catch (err) {
-      // console.error("Failed to remove team member:", err);
+      
       toast.error(err.response?.data?.error || "Failed to remove team member");
     }
   };

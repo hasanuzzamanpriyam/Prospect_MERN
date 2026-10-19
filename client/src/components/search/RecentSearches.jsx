@@ -79,7 +79,7 @@ const RecentSearches = ({ searches = [], onDelete }) => {
         notifyRecentToSaved("Custom Search");
       }
     } catch (error) {
-      // console.error("save failed", error);
+      
       const msg = error.response?.data?.error || error.message || "Unable to save search";
       toast.error(msg);
     }

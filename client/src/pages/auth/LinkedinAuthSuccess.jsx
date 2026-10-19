@@ -24,7 +24,7 @@ const LinkedinAuthSuccess = () => {
       navigate("/dashboard"); // Redirect to dashboard or desired route
     } else {
       // Handle error - e.g., show an error message
-      // console.error("No token found");
+      
     }
   }, [navigate, setIsLoggedIn, setUser]);
 

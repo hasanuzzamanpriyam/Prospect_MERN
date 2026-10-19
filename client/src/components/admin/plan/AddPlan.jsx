@@ -105,7 +105,7 @@ export default function AddPlan() {
           setFormData((prev) => ({ ...prev, assigned: [assignedEmail] }));
         }
       } catch (err) {
-        // console.error("Error fetching users for assignment match:", err);
+        
       }
     };
     fetchUsersAndMatch();
@@ -120,7 +120,7 @@ export default function AddPlan() {
       });
       setUsers(res.data?.users || res.data?.data || []);
     } catch (err) {
-      // console.error("Error fetching users:", err);
+      
     }
   };
 
@@ -181,7 +181,7 @@ export default function AddPlan() {
         1500,
       );
     } catch (error) {
-      // console.error("Error adding plan:", error);
+      
       if (error.code === "ECONNABORTED") {
         toast.error(
           "Request timeout. Please check your connection and try again.",
@@ -270,7 +270,7 @@ export default function AddPlan() {
       );
       setSearchResults(filtered);
     } catch (err) {
-      // console.error("Error searching users:", err);
+      
     }
     setSearchingUsers(false);
   };

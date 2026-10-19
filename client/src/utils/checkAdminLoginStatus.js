@@ -38,7 +38,7 @@ const checkAdminLoginStatus = async () => {
       Cookies.remove("adminAccessToken");
     }
   } catch (error) {
-    // console.error("Error checking token validity:", error);
+    
 
     // Avoid logging out the admin if the failure was due to a transient network issue.
     if (error.response?.status === 401) {

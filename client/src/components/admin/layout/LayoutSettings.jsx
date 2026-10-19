@@ -43,7 +43,7 @@ export default function LayoutSettings() {
     setLoading(true);
     const token = Cookies.get("adminAccessToken");
     if (!token) {
-      // console.warn("No admin token found");
+      
       return;
     }
     try {
@@ -60,7 +60,7 @@ export default function LayoutSettings() {
       setPaymentRedirectMode(mode);
       
     } catch (err) {
-      // console.error("[fetchCurrentOrder] Error:", err);
+      
       toast.error("Could not load payment layout");
       setOrder(DEFAULT_METHODS);
     } finally {
@@ -132,7 +132,7 @@ export default function LayoutSettings() {
 
       toast.success(`Payment method ${formData.disabled ? "disabled" : "updated"} successfully`);
     } catch (err) {
-      // console.error("Failed to save method:", err);
+      
       toast.error("Could not update payment method");
     }
   };
@@ -174,7 +174,7 @@ export default function LayoutSettings() {
 
       toast.success("Checkout layout & redirect settings saved successfully");
     } catch (err) {
-      // console.error("Failed to save layout:", err.message, err.response?.data);
+      
       toast.error("Could not save layout order");
     }
   };

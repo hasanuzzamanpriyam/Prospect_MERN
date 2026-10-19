@@ -87,7 +87,7 @@ export default function AdminSettings() {
     setLoading(true);
     const token = Cookies.get("adminAccessToken");
     if (!token) {
-      // console.warn("[AdminSettings] No adminAccessToken found in cookies.");
+      
       setLoading(false);
       return;
     }
@@ -103,7 +103,7 @@ export default function AdminSettings() {
       }
       await checkApis();
     } catch (err) {
-      // console.error("[AdminSettings] Error fetching settings:", {
+      
       //   message: err.message,
       //   status: err.response?.status,
       //   data: err.response?.data,
@@ -127,7 +127,7 @@ export default function AdminSettings() {
         toast.warn(`API Alerts: ${failingApis.join(", ")}`);
       }
     } catch (err) {
-      // console.error("API health check error:", err);
+      
     }
   };
 
@@ -301,7 +301,7 @@ export default function AdminSettings() {
     } catch (err) {
       const msg = err.response?.data?.message || err.message || "Upload failed";
       toast.error(msg);
-      // console.error("[uploadSlideImage]", err);
+      
     } finally {
       setUploadingImage(false);
     }

@@ -89,7 +89,7 @@ const useFilterLogic = (filterName) => {
         // signal dashboard to refresh
         setLastRecentUpdate(Date.now());
       } catch (error) {
-        // console.error("Failed to save recent search:", error);
+        
       }
     }
   };

@@ -65,7 +65,7 @@ export default function AddAdmin() {
       toast.success("Admin added successfully!");
       setTimeout(() => navigate("/admin/admins"), 1500);
     } catch (error) {
-      // console.error("Error adding admin:", error);
+      
       const errorMsg = error?.response?.data?.message || "Error adding admin.";
       setError(errorMsg);
       toast.error(errorMsg);

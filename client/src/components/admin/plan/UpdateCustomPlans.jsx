@@ -146,7 +146,7 @@ export default function UpdateCustomPlans() {
       });
       setUsers(res.data?.users || res.data?.data || []);
     } catch (err) {
-      // console.error("Error fetching users:", err);
+      
     }
   };
 
@@ -183,7 +183,7 @@ export default function UpdateCustomPlans() {
       toast.success("Custom plan updated successfully!");
       setTimeout(() => navigate("/admin/custom-plans"), 1500);
     } catch (error) {
-      // console.error("Error updating custom plan:", error);
+      
       toast.error(error?.response?.data?.message || "Error updating custom plan.");
     } finally {
       setSubmitting(false);

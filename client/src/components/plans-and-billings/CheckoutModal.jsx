@@ -91,7 +91,7 @@ const CheckoutModal = ({
            }
          }
        } catch (err) {
-         // console.error("Method Load Error:", err.message);
+         
        }
      };
 
@@ -117,7 +117,7 @@ const CheckoutModal = ({
         await onCheckOut(method);
       }
     } catch (err) {
-      // console.error("Checkout error:", err);
+      
     } finally {
       setIsProcessing(false);
     }

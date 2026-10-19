@@ -29,7 +29,7 @@ const RecentSearchesPage = () => {
         );
         setSearches(data);
       } catch (err) {
-        // console.error("Failed to fetch recent searches", err);
+        
         toast.error("Failed to load recent searches");
       } finally {
         setLoading(false);
@@ -50,7 +50,7 @@ const RecentSearchesPage = () => {
         );
         setSavedSearches(data);
       } catch (err) {
-        // console.error("Failed to fetch saved searches", err);
+        
       }
     };
     fetchSaved();
@@ -93,7 +93,7 @@ const RecentSearchesPage = () => {
                     );
                     saved++;
                   } catch (err) {
-                    // console.error("Failed to save individual search", err);
+                    
                   }
                 }
 
@@ -105,7 +105,7 @@ const RecentSearchesPage = () => {
                 
                 notifyRecentToSaved("Custom Search");
               } catch (err) {
-                // console.error("Save all failed", err);
+                
                 toast.error("Failed to save all searches");
               }
             }}

@@ -76,7 +76,7 @@ export default function UpdateTransaction() {
           updatedAt: transData.updatedAt || "",
         });
       } catch (err) {
-        // console.error("Error fetching transaction data:", err);
+        
         setError("Failed to load transaction data.");
         toast.error("Failed to load transaction data.");
       } finally {
@@ -155,7 +155,7 @@ export default function UpdateTransaction() {
       toast.success("Transaction updated successfully!");
       setTimeout(() => navigate("/admin/transactions"), 1500);
     } catch (error) {
-      // console.error("Error updating transaction:", error);
+      
       toast.error(error?.response?.data?.message || "Error updating transaction.");
     } finally {
       setSubmitting(false);

@@ -66,7 +66,7 @@ export default function ViewSpecialDeals() {
         setTotalPages(1);
         setError("");
       } else {
-        // console.error("Error fetching special deals:", err);
+        
         setError(
           err?.response?.data?.message ||
             err?.message ||

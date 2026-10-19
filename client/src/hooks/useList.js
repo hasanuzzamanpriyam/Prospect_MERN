@@ -23,7 +23,7 @@ const useLists = () => {
       setLists(response.data);
     } catch (err) {
       setError(err);
-      // console.error("Error fetching lists:", err);
+      
     } finally {
       setIsLoading(false);
     }

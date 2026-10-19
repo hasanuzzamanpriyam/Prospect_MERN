@@ -13,7 +13,7 @@ const FastspringGateway = ({
 
   const handleClick = () => {
     if (!items.length) {
-      // console.warn("FastspringGateway: no items provided.");
+      
       return;
     }
     pushToFastSpring(email, firstName, lastName, items);

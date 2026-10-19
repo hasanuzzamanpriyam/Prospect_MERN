@@ -60,7 +60,7 @@ export default function SearchPage() {
           return;
         }
       } catch (error) {
-        // console.error("Failed to decode state from URL:", error);
+        
         toast.error("Could not load the shared search state.");
       }
     }
@@ -88,7 +88,7 @@ export default function SearchPage() {
           newParams.delete("s");
           setSearchParams(newParams);
         } catch (error) {
-          // console.error("Failed to apply shared search state:", error);
+          
           toast.error("Could not load shared search settings.");
         }
       })();

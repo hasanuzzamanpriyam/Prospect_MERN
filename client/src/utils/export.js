@@ -10,7 +10,7 @@ export const exportToCSV = (
   fieldLabels = {}
 ) => {
   if (!Array.isArray(data) || data.length === 0) {
-    // console.warn("No data to export");
+    
     return;
   }
 
@@ -173,6 +173,6 @@ export const exportToCSV = (
       }
     }
   } catch (err) {
-    // console.error("Error exporting data to CSV:", err);
+    
   }
 };

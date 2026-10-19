@@ -67,7 +67,7 @@ export default function AddOrUpdateCoupon() {
           });
         }
       } catch (err) {
-        // console.error("Error fetching coupon data:", err);
+        
         setError("Failed to load coupon data.");
         toast.error("Failed to load coupon data.");
       } finally {

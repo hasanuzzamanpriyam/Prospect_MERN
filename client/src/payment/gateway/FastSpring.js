@@ -26,11 +26,11 @@ const BASE_URL = API_CONFIG.API_ENDPOINT;
  *      window.dataCallback = function(data) {
  *        if (data.totalValue > 0) {
  *        } else {
- *          // console.warn("[FastSpring] ✗ Session empty - check product paths");
+ *          
  *        }
  *      };
  *      window.fsErrorCallback = function(code, url) {
- *        // console.error("[FastSpring] SBL error:", code, url);
+ *        
  *      };
  *      window.onFSPopupClosed = function(orderRef) {
  *        if (orderRef?.id) window.location.replace("/dashboard");

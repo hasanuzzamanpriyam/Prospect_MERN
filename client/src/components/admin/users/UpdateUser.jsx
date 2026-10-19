@@ -111,7 +111,7 @@ export default function UpdateUser() {
           password: "",
         });
       } catch (err) {
-        // console.error("Error fetching user data:", err);
+        
         setError("Failed to load user data.");
         toast.error("Failed to load user data.");
       } finally {

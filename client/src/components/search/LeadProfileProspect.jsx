@@ -81,7 +81,7 @@ export default function LeadProfileProspect({ item, queryClient, viewType }) {
           setSavedContactData(source);
         }
       } catch (error) {
-        // console.error("Failed to check saved status:", error);
+        
       }
     };
 
@@ -137,7 +137,7 @@ export default function LeadProfileProspect({ item, queryClient, viewType }) {
       setSelectedList(null);
       refetch();
     } catch (err) {
-      // console.error(err);
+      
       toast.error(err.response?.data?.message || "Failed to add contact to list");
     } finally {
       setSaving(false);
@@ -170,7 +170,7 @@ export default function LeadProfileProspect({ item, queryClient, viewType }) {
       setIsCreateListModalOpen(false);
       refetch();
     } catch (err) {
-      // console.error(err);
+      
       toast.error(err.response?.data?.message || "Failed to create list");
     }
   };

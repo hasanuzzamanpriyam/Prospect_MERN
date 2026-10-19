@@ -121,7 +121,7 @@ function CompanySidebar() {
           setLists(companyLists);
         }
       } catch (err) {
-        // console.error("Failed to load lists", err);
+        
       }
     };
     fetchLists();
@@ -216,7 +216,7 @@ function CompanySidebar() {
         notifySearchSaved("Company Search");
       }
     } catch (error) {
-      // console.error("saveSearch error", error);
+      
       const msg = error.response?.data?.error || error.message || "Failed to save search";
       toast.error(msg);
     }
@@ -244,7 +244,7 @@ function CompanySidebar() {
           setCompanySuggestions(data);
           setShowCompanySuggestions(true);
         } catch (err) {
-          // console.error("Failed to fetch company suggestions", err);
+          
           setCompanySuggestions([]);
         } finally {
           setLoadingCompanySuggestions(false);
@@ -284,7 +284,7 @@ function CompanySidebar() {
           setCityStateSuggestions(filtered);
           setShowCityStateSuggestions(true);
         } catch (err) {
-          // console.error("Failed to fetch city/state suggestions", err);
+          
           setCityStateSuggestions([]);
         } finally {
           setLoadingCityStateSuggestions(false);
@@ -324,7 +324,7 @@ function CompanySidebar() {
           setCountrySuggestions(merged);
           setShowCountrySuggestions(true);
         } catch (err) {
-          // console.error("Failed to fetch country suggestions", err);
+          
           setCountrySuggestions([]);
         } finally {
           setLoadingCountrySuggestions(false);
@@ -359,7 +359,7 @@ function CompanySidebar() {
           setZipSuggestions(filtered);
           setShowZipSuggestions(true);
         } catch (err) {
-          // console.error("Failed to fetch zip suggestions", err);
+          
           setZipSuggestions([]);
         } finally {
           setLoadingZipSuggestions(false);
@@ -390,7 +390,7 @@ function CompanySidebar() {
           setKeywordsSuggestions(data);
           setShowKeywordsSuggestions(true);
         } catch (err) {
-          // console.error("Failed to fetch keywords suggestions", err);
+          
           setKeywordsSuggestions([]);
         } finally {
           setLoadingKeywordsSuggestions(false);
@@ -424,7 +424,7 @@ function CompanySidebar() {
         if (listsRes.status === 200) setLists(listsRes.data);
       }
     } catch (err) {
-      // console.error("Failed to create list", err);
+      
     }
   };
 

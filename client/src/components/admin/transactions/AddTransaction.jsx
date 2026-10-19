@@ -173,7 +173,7 @@ export default function AddTransaction() {
       toast.success("Transaction added successfully!");
       setTimeout(() => navigate("/admin/transactions"), 1500);
     } catch (error) {
-      // console.error("Error adding transaction:", error);
+      
       toast.error(error?.response?.data?.message || "Error adding transaction.");
     } finally {
       setSubmitting(false);

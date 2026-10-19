@@ -54,7 +54,7 @@ export default function UsageChart({
         );
         setChartData(res.data);
       } catch (err) {
-        // console.error("Failed to fetch credit history:", err);
+        
       }
     };
     fetchHistory();

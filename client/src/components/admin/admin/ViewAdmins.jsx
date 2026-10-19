@@ -51,7 +51,7 @@ export default function ViewAdmins() {
       setTotalPages(response.data.totalPages || 1);
       setError("");
     } catch (err) {
-      // console.error("Error fetching user data:", err);
+      
       setError(
         err?.response?.data?.message ||
           err?.message ||

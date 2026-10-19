@@ -22,7 +22,7 @@ const LogoutButton = () => {
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
             } catch (err) {
-                // console.error("Logout error:", err);
+                
             }
         }
 

@@ -51,7 +51,7 @@ function ListsPage() {
         setFolders(response.data.folders);
       }
     } catch (err) {
-      // console.error("Failed to fetch lists page data:", err);
+      
       toast.error("Failed to load lists");
     }
   };
@@ -105,7 +105,7 @@ function ListsPage() {
                 
                 notifyListDeleted();
               } catch (err) {
-                // console.error("Failed to delete list:", err);
+                
 
                 const message =
                   err.response?.data?.message ||
@@ -136,7 +136,7 @@ function ListsPage() {
       
       notifyFolderCreated(folderName);
     } catch (err) {
-      // console.error("Failed to create folder:", err);
+      
       const message =
         err.response?.data?.message ||
         err.response?.data?.error ||
@@ -176,7 +176,7 @@ function ListsPage() {
       
       notifyListCreated(listName, type);
     } catch (err) {
-      // console.error("Failed to create list:", err);
+      
       const message =
         err.response?.data?.message ||
         err.response?.data?.error ||
@@ -201,7 +201,7 @@ function ListsPage() {
       toast.success("List added to folder");
       setIsAddListModalOpen(false);
     } catch (err) {
-      // console.error("Failed to add list to folder:", err);
+      
       const message =
         err.response?.data?.message ||
         err.response?.data?.error ||
@@ -221,7 +221,7 @@ function ListsPage() {
       toast.success("List created in folder");
       setIsAddListModalOpen(false);
     } catch (err) {
-      // console.error("Failed to create list in folder:", err);
+      
       toast.error("Unable to create list");
     }
   };
@@ -255,7 +255,7 @@ function ListsPage() {
                 
                 notifyFolderDeleted();
               } catch (err) {
-                // console.error("Failed to delete folder:", err);
+                
 
                 const message =
                   err.response?.data?.message ||
@@ -282,7 +282,7 @@ function ListsPage() {
       await updateList(listId, updates);
       await fetchListsPageData(selectedFolderId);
     } catch (err) {
-      // console.error("Failed to update list:", err);
+      
       const message =
         err.response?.data?.message ||
         err.response?.data?.error ||
@@ -321,7 +321,7 @@ function ListsPage() {
 
                 await fetchListsPageData(selectedFolderId);
               } catch (err) {
-                // console.error("Failed to delete all lists:", err);
+                
 
                 const message =
                   err.response?.data?.message ||

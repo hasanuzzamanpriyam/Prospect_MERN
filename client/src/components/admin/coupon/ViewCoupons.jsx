@@ -51,7 +51,7 @@ export default function ViewCoupons() {
       setTotalPages(response.data.totalPages || 1);
       setError("");
     } catch (err) {
-      // console.error("Error fetching coupon data:", err);
+      
       setError(
         err?.response?.data?.message ||
           err?.message ||

@@ -78,8 +78,8 @@ function ContactHeader() {
                 
                 notifyContactDeleted(contactIds.length);
               } catch (error) {
-                // console.error("[Delete] Error:", error);
-                // console.error("[Delete] Error response:", error.response?.data);
+                
+                
                 toast.error(error.response?.data?.error || "Failed to delete contacts");
               } finally {
                 setIsDeleting(false);
@@ -137,8 +137,8 @@ function ContactHeader() {
                 
                 notifyContactDeleted(response.data.deletedFromSavedContacts);
               } catch (error) {
-                // console.error("[DeleteAll] Error:", error);
-                // console.error("[DeleteAll] Error response:", error.response?.data);
+                
+                
                 toast.error(error.response?.data?.error || "Failed to delete all contacts");
               } finally {
                 setIsDeletingAll(false);
@@ -171,8 +171,8 @@ function ContactHeader() {
       queryClient.invalidateQueries({ queryKey: ["savedContacts"] });
       await queryClient.refetchQueries({ queryKey: ["savedContacts"] });
     } catch (error) {
-      // console.error("[Cleanup] Error:", error);
-      // console.error("[Cleanup] Error response:", error.response?.data);
+      
+      
       toast.error(error.response?.data?.error || "Failed to cleanup duplicates");
     } finally {
       setIsCleaningup(false);

@@ -103,7 +103,7 @@ export default function CustomPlanModal({ isOpen, onClose }) {
         });
       }
     } catch (error) {
-      // console.error("Error submitting custom plan request:", error);
+      
       toast.error(
         error.response?.data?.message || "Failed to send custom plan request"
       );

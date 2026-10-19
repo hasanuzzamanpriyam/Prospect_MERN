@@ -66,7 +66,7 @@ export default function AddCoupon() {
       toast.success("Coupon added successfully!");
       setTimeout(() => navigate("/admin/coupons"), 1500);
     } catch (error) {
-      // console.error("Error adding coupon:", error);
+      
       const errorMsg = error?.response?.data?.message || "Error adding coupon.";
       setError(errorMsg);
       toast.error(errorMsg);

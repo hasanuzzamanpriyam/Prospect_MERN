@@ -56,7 +56,7 @@ const LeadSearchFilter = ({ filterName }) => {
         notifySearchSaved("Custom Search");
       }
     } catch (error) {
-      // console.error("saveSearch error", error);
+      
       const msg = error.response?.data?.error || error.message || "Failed to save search";
       toast.error(msg);
     }

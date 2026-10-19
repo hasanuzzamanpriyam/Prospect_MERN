@@ -146,7 +146,7 @@ function LeadRightTopbar({ data, counts, totalLoading, isLoading }) {
                 clearCheckedItems();
                 incKey(); // force count + results re-fetch
               } catch (error) {
-                // console.error("Failed to delete saved contacts:", error);
+                
                 const errorMessage = error?.response?.data?.error || error?.response?.data?.message || error?.message || "Failed to delete saved contacts";
                 toast.error(errorMessage);
               }
@@ -204,7 +204,7 @@ function LeadRightTopbar({ data, counts, totalLoading, isLoading }) {
                 clearCheckedItems();
                 incrementDataRefreshKey(); // force count + results re-fetch
               } catch (error) {
-                // console.error("Failed to delete saved contacts:", error);
+                
                 const errorMessage = error?.response?.data?.error || error?.response?.data?.message || error?.message || "Failed to delete saved contacts";
                 toast.error(errorMessage);
               }
@@ -403,7 +403,7 @@ function LeadRightTopbar({ data, counts, totalLoading, isLoading }) {
                     navigator.clipboard.writeText(result.url);
                     toast.success("Short link copied to clipboard!");
                   } catch (e) {
-                    // console.error("Failed to generate share link", e);
+                    
                     toast.error("Failed to generate share link");
                   }
                 }

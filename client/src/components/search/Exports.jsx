@@ -86,7 +86,7 @@ const Exports = () => {
       // });
 
       if (!quantity || quantity <= 0) {
-        // console.error("[EXPORTS] ❌ Invalid quantity:", quantity);
+        
         toast.error("No items selected for export");
         setIsExporting(false);
         return;
@@ -106,7 +106,7 @@ const Exports = () => {
       );
 
       if (selectAllMode && ids.length === 0) {
-        // console.warn("[EXPORTS] ⚠️ selectAllMode active but checkedItems empty");
+        
         toast.error("Select at least one page of items before exporting all.");
         setIsExporting(false);
         return;
@@ -170,7 +170,7 @@ const Exports = () => {
       clearTimeout(timeoutId);
       if (!response.ok) {
         const errorText = await response.text();
-        // console.error("[EXPORTS] ❌ Server export failed:", { status: response.status, body: errorText });
+        
         throw new Error(`Export failed: ${response.status}`);
       }
 
@@ -201,7 +201,7 @@ const Exports = () => {
       // console.log("[EXPORTS] ✅ exportHandler completed successfully");
     } catch (error) {
       const errData = error?.response?.data || {};
-      // console.error("[EXPORTS] ❌ exportHandler failed:", {
+      
         // error: errData.error || error.message,
         // message: errData.message,
         // details: errData.details,
@@ -214,7 +214,7 @@ const Exports = () => {
       } else {
         toast.error(error.message || "Export failed");
       }
-      // console.warn("[EXPORTS] ⚠️ WARNING: Credits may have been partially deducted before this failure — no rollback in place");
+      
     } finally {
       // console.groupEnd();
       setIsExporting(false);

@@ -47,7 +47,7 @@ export default function LeadProfileContacts({ dataItem, queryClient }) {
 
       setSavedContacts(normalized);
     } catch (err) {
-      // console.error("Failed to fetch saved contacts", err);
+      
       setError("Failed to load saved contacts.");
     }
   };
@@ -85,8 +85,8 @@ export default function LeadProfileContacts({ dataItem, queryClient }) {
       }
       notifyContactDeleted(deletedCount);
     } catch (error) {
-      // console.error("[handleDeleteContact] Failed to delete saved contact:", error);
-      // console.error("[handleDeleteContact] Error response:", error.response?.data);
+      
+      
       const errorMessage = error?.response?.data?.error || error?.response?.data?.message || error?.message || "Failed to delete contact";
       toast.error(errorMessage);
     } finally {

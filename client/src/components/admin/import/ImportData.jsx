@@ -149,7 +149,7 @@ export default function ImportData() {
         fileInputRef.current.value = "";
       }
     } catch (error) {
-      // console.error("Upload error:", error);
+      
       const errorMessage = error.response?.data?.message || 
                           error.response?.data?.error || 
                           "Failed to upload file";

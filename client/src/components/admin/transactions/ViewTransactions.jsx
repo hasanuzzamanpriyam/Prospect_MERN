@@ -60,7 +60,7 @@ export default function ViewTransactions() {
       setTotalPages(response.data.totalPages || 1);
       setError("");
     } catch (err) {
-      // console.error("Error fetching transaction data:", err);
+      
       setError(
         err?.response?.data?.message ||
           err?.message ||

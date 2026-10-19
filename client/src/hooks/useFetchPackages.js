@@ -31,7 +31,7 @@ const useFetchPackages = (isAnnually, setIsLoading) => {
         }
         setPlans(sortedPlans);
       } catch (error) {
-        // console.error(error);
+        
       } finally {
         setIsLoading(false);
       }

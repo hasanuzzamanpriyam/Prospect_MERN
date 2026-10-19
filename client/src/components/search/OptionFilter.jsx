@@ -321,7 +321,7 @@ const OptionFilter = ({
 
           } catch (error) {
 
-            // console.error(`Failed to fetch ${optionType} suggestions:`, error);
+            
 
             if (optionType === "city") setCitySuggestions([]);
 

@@ -50,7 +50,7 @@ const EnrichPage = () => {
           setCompanySuggestions(res.data.suggestions || []);
           setShowSuggestions(true);
         } catch (error) {
-          // console.error("Failed to fetch company suggestions:", error);
+          
           setCompanySuggestions([]);
         } finally {
           setLoadingSuggestions(false);
@@ -106,7 +106,7 @@ const EnrichPage = () => {
 
       setEnrichedContact(formatContact(first));
     } catch (err) {
-      // console.error("[performEnrichSearch] Error:", err);
+      
       let message = "Something went wrong while searching";
       if (err.response?.data?.error) {
         message = err.response.data.error;

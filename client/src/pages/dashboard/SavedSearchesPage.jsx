@@ -38,7 +38,7 @@ const SavedSearchesPage = () => {
         );
         setSearches(data);
       } catch (err) {
-        // console.error("Failed to fetch saved searches", err);
+        
         toast.error("Failed to load saved searches");
       } finally {
         setLoading(false);
@@ -79,7 +79,7 @@ const SavedSearchesPage = () => {
                     );
                     removed++;
                   } catch (err) {
-                    // console.error("Failed to remove individual search", err);
+                    
                   }
                 }
 
@@ -91,7 +91,7 @@ const SavedSearchesPage = () => {
                 
                 notifySearchDeleted("Saved", removed);
               } catch (err) {
-                // console.error("Unsave all failed", err);
+                
                 toast.error("Failed to unsave all");
               }
             }}
@@ -136,7 +136,7 @@ const SavedSearchesPage = () => {
                     );
                     deleted++;
                   } catch (err) {
-                    // console.error("Failed to delete individual search", err);
+                    
                   }
                 }
 
@@ -149,7 +149,7 @@ const SavedSearchesPage = () => {
                 
                 notifySearchDeleted("Saved", deleted);
               } catch (err) {
-                // console.error("Delete all failed", err);
+                
                 toast.error("Failed to delete all");
               }
             }}

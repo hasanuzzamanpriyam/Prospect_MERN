@@ -37,7 +37,7 @@ const checkLoginStatus = async () => {
       localStorage.removeItem("userAccessToken");
     }
   } catch (error) {
-    // console.error("Error checking token validity:", error);
+    
 
     // Handle unverified user — redirect to verification
     if (error.response?.status === 403 && error.response?.data?.needsVerification) {

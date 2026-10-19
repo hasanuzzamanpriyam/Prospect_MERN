@@ -100,7 +100,7 @@ const useStore = create((set) => ({
         set({ user: userData });
       }
     } catch (error) {
-      // console.error("Failed to refresh user:", error);
+      
     }
   },
 
@@ -739,7 +739,7 @@ const useStore = create((set) => ({
         });
       }
     } catch (error) {
-      // console.error("Failed to fetch payment settings:", error);
+      
     }
   },
 }));

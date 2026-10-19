@@ -148,7 +148,7 @@ export default function SaveLeads() {
       // console.log(`[SAVE LEADS] ✅ DB save success: ${variables.savedItems.length} items, upserted=${data?.inserted}, modified=${data?.modified}`);
     },
     onError: (error) => {
-      // console.error("[SAVE LEADS] ❌ DB save failed:", {
+      
         // status: error?.response?.status,
         // data: error?.response?.data,
         // message: error?.message,
@@ -173,7 +173,7 @@ export default function SaveLeads() {
 
     try {
       if (checkedTabs.list && selectedList.length === 0) {
-        // console.warn("[SAVE LEADS] ⚠️ Add to list checked but no list selected");
+        
         toast.error("Please select at least one list to add contacts to");
         return;
       }
@@ -304,10 +304,10 @@ export default function SaveLeads() {
             notifyExport(validItems.length, exportFormat);
           }
         } else {
-          // console.warn("[SAVE LEADS] ⚠️ No valid items after filtering — skipping save");
+          
         }
       } else {
-        // console.warn("[SAVE LEADS] ⚠️ No checked items — nothing to save");
+        
       }
 
       handleClose();
@@ -316,7 +316,7 @@ export default function SaveLeads() {
       // console.log("[SAVE LEADS] ✅ handleConfirm completed successfully");
     } catch (err) {
       const errResponse = err?.response?.data || {};
-      // console.error("[SAVE LEADS] ❌ handleConfirm failed:", {
+      
         // error: errResponse.error || err.message,
         // message: errResponse.message,
         // details: errResponse.details,
@@ -328,7 +328,7 @@ export default function SaveLeads() {
       } else if (errResponse.error !== "INSUFFICIENT_FUNDS") {
         toast.error(errResponse.message || err.message || "Unable to complete save");
       }
-      // console.warn("[SAVE LEADS] ⚠️ WARNING: Credits may have been deducted before this failure — no rollback in place");
+      
     } finally {
       // console.groupEnd();
       setIsSaving(false);

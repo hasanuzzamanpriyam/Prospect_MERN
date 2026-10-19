@@ -48,7 +48,7 @@ export default function LoginPage() {
           ...res.data,
         }));
       } catch (err) {
-        // console.error("Failed to fetch custom login texts", err);
+        
       }
     };
 
@@ -96,7 +96,7 @@ export default function LoginPage() {
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "Login failed");
       toast.error(error.response?.data?.message || "Login failed");
-      // console.error("Error during login:", error);
+      
     } finally {
       setLoading(false);
     }
@@ -133,7 +133,7 @@ export default function LoginPage() {
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "Google sign-in failed");
       toast.error(error.response?.data?.message || "Google sign-in failed");
-      // console.error("Error during Google sign-in:", error);
+      
     } finally {
       setLoading(false);
     }
@@ -225,7 +225,7 @@ export default function LoginPage() {
                 <GoogleLogin
                   onSuccess={handleGoogleSignIn}
                   onError={() => {
-                    // console.error("Login Failed");
+                    
                   }}
                   shape="pill"
                   useOneTap

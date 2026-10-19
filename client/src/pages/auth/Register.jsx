@@ -206,7 +206,7 @@ export default function Register() {
         const res = await axios.get(`${BASE_URL}/api/admin/settings/public`);
         setCustomTexts((prev) => ({ ...prev, ...res.data }));
       } catch (err) {
-        // console.error("Failed to fetch custom register texts", err);
+        
       }
     };
 

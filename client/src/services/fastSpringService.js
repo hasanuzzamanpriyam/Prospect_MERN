@@ -27,7 +27,7 @@ const fastSpringService = {
         transactionId: response.data.transactionId,
       };
     } catch (error) {
-      // console.error("FastSpring checkout error:", error);
+      
       throw new Error(
         error.response?.data?.error || "Failed to initialize FastSpring checkout"
       );
@@ -52,7 +52,7 @@ const fastSpringService = {
         throw new Error("No checkout URL provided");
       }
     } catch (error) {
-      // console.error("Redirect to FastSpring checkout failed:", error);
+      
       throw error;
     }
   },
@@ -85,7 +85,7 @@ const fastSpringService = {
         throw new Error("No checkout URL provided");
       }
     } catch (error) {
-      // console.error("Failed to open FastSpring checkout:", error);
+      
       throw error;
     }
   },

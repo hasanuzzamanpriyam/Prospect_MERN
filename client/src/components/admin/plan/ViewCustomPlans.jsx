@@ -54,7 +54,7 @@ export default function ViewCustomPlans() {
       setUsers(usersRes.data?.users || usersRes.data?.data || []);
       setError("");
     } catch (err) {
-      // console.error("Error fetching custom plan data:", err);
+      
       setError(
         err?.response?.data?.message ||
           err?.message ||
@@ -144,7 +144,7 @@ export default function ViewCustomPlans() {
       });
       setUsers(res.data?.users || res.data?.data || []);
     } catch (err) {
-      // console.error("Error fetching users:", err);
+      
     }
   };
 
@@ -169,7 +169,7 @@ export default function ViewCustomPlans() {
       );
       setSearchResults(filtered);
     } catch (err) {
-      // console.error("Error searching users:", err);
+      
     }
     setSearchingUsers(false);
   };

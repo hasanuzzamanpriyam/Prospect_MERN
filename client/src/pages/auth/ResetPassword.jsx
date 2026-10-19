@@ -29,7 +29,7 @@ export default function ResetPasswordPage() {
     }
 
     if (!tokenFromUrl) {
-      // console.error("❌ Token missing from URL!");
+      
       toast.error("Invalid or missing reset token");
       navigate(type === "admin" ? "/admin-forgot-password" : "/forgot-password");
       return;
@@ -75,7 +75,7 @@ export default function ResetPasswordPage() {
     } catch (error) {
       const message = error.response?.data?.message || "Failed to reset password";
       toast.error(message);
-      // console.error("Error during password reset:", error);
+      
     } finally {
       setLoading(false);
     }

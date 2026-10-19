@@ -187,7 +187,7 @@ function SingleVerification() {
         toast.error("Failed to verify emails. Please try again.");
       }
     } catch (error) {
-      // console.error("Error verifying emails:", error);
+      
       toast.error(
         error.response?.data?.message ||
           "An error occurred during verification.",

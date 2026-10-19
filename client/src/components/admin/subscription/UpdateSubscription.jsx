@@ -107,7 +107,7 @@ export default function UpdateSubscription() {
       toast.success("Subscription updated successfully!");
       setTimeout(() => navigate("/admin/subscriptions"), 1500);
     } catch (error) {
-      // console.error("Error updating subscription:", error);
+      
       toast.error(error?.response?.data?.message || "Error updating subscription.");
     } finally {
       setSubmitting(false);

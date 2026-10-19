@@ -13,13 +13,13 @@ export const logger = {
   
   warn: (message, data = {}) => {
     if (isDev) {
-      // console.warn(`[WARN] ${message}`, Object.keys(data).length ? data : '');
+      
     }
   },
   
   error: (message, error = null, additionalContext = {}) => {
     // Always log errors, even in prod (can be wired to Sentry later)
-    // console.error(`[ERROR] ${message}`);
+    
     
     if (error) {
       // Extensive error breakdown for Axios errors
@@ -36,10 +36,10 @@ export const logger = {
         ...additionalContext
       };
       
-      // console.error('Error Breakdown:', breakdown);
-      // console.error('Full Error Object:', error);
+      
+      
     } else if (Object.keys(additionalContext).length) {
-      // console.error('Context:', additionalContext);
+      
     }
   }
 };

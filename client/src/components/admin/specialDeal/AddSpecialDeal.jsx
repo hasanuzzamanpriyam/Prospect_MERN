@@ -147,7 +147,7 @@ export default function AddSpecialDeal() {
       toast.success("Special deal created successfully!");
       setTimeout(() => navigate("/admin/special-deals"), 1500);
     } catch (error) {
-      // console.error("Error adding special deal:", error);
+      
       const errorMsg = error?.response?.data?.message || "Error adding special deal.";
       setError(errorMsg);
       toast.error(errorMsg);

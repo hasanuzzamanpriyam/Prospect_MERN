@@ -97,7 +97,7 @@ export default function AddSubscription() {
       toast.success("Subscription created successfully!");
       setTimeout(() => navigate("/admin/subscriptions"), 1500);
     } catch (error) {
-      // console.error("Error adding subscription:", error);
+      
       toast.error(error?.response?.data?.message || "Error creating subscription.");
     } finally {
       setSubmitting(false);

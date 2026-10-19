@@ -40,7 +40,7 @@ export default function TelegramLogin() {
         // Redirect to dashboard or another page
         navigate("/dashboard");
       } catch (error) {
-        // console.error("Error during Telegram login:", error);
+        
         toast.error("Login failed. Please try again.");
       }
     };

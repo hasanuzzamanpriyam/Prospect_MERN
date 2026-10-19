@@ -111,7 +111,7 @@ export default function UpdateSpecialDeal() {
           });
         }
       } catch (err) {
-        // console.error("Error fetching deal data:", err);
+        
         setError("Failed to load deal data.");
         toast.error("Failed to load deal data.");
       } finally {

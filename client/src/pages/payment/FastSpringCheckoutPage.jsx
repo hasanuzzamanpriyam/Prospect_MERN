@@ -58,13 +58,13 @@ const FastSpringCheckoutPage = () => {
           setIsProcessing(false);
           setCheckoutOpened(true);
         } catch (err) {
-          // console.error("FastSpring checkout error:", err);
+          
           setError("Failed to open checkout. Please try again.");
           setIsProcessing(false);
         }
       }, 200);
     } catch (err) {
-      // console.error("Failed to process checkout data:", err);
+      
       setError("Invalid checkout session. Please try again.");
       setIsProcessing(false);
     }

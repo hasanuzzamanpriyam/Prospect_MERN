@@ -41,7 +41,7 @@ export default function ViewUsers() {
       });
       setSelectedUser(response.data.user || response.data);
     } catch (err) {
-      // console.error("Error fetching user details:", err);
+      
     } finally {
       setRefreshingUser(false);
     }
@@ -82,7 +82,7 @@ export default function ViewUsers() {
       setError("");
     } catch (err) {
       setError(err.response?.data?.message || "Error fetching users.");
-      // console.error("Fetch error:", err);
+      
     } finally {
       if (isSearch) setIsSearching(false);
       else setLoading(false);

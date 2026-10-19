@@ -68,7 +68,7 @@ export default function EnrichProfile({ contact }) {
         );
       }
     } catch (error) {
-      // console.error("Error saving contact:", error);
+      
       const message =
         error.response?.data?.error || error.message || "Failed to save";
       toast.error(message);

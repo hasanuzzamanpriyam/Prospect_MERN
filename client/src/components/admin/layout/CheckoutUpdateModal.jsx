@@ -48,7 +48,7 @@ export default function CheckoutUpdateModal({
       await onSave(formData, method);
       onClose();
     } catch (err) {
-      // console.error("Save failed", err);
+      
     } finally {
       setIsSaving(false);
     }

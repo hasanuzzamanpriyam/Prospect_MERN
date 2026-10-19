@@ -32,7 +32,7 @@ export const saveSearch = async (filters, excludedFilters) => {
     );
     return response.status === 200;
   } catch (err) {
-    // console.error("saveSearch failed", err.response?.status, err.response?.data || err);
+    
     throw err;
   }
 };
@@ -49,7 +49,7 @@ export const saveRecentSearch = async (filters, excludedFilters) => {
       { headers: { Authorization: `Bearer ${localStorage.getItem("userAccessToken") || Cookies.get("userAccessToken")}` } },
     );
   } catch (err) {
-    // console.error("Failed to save recent search:", err);
+    
   }
 };
 
@@ -60,7 +60,7 @@ export const deleteRecentSearch = async (id) => {
     });
     return true;
   } catch (err) {
-    // console.error("Failed to delete recent search:", err);
+    
     return false;
   }
 };
@@ -72,7 +72,7 @@ export const deleteSavedSearch = async (id) => {
     });
     return true;
   } catch (err) {
-    // console.error("Failed to delete saved search:", err);
+    
     return false;
   }
 };

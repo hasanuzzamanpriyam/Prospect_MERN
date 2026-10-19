@@ -64,7 +64,7 @@ export default function UpdateAdmin() {
           password: "",
         });
       } catch (err) {
-        // console.error("Error fetching admin data:", err);
+        
         setError("Failed to load admin data.");
         toast.error("Failed to load admin data.");
       } finally {
@@ -102,7 +102,7 @@ export default function UpdateAdmin() {
       toast.success("Admin updated successfully!");
       setTimeout(() => navigate("/admin/admins"), 1500);
     } catch (error) {
-      // console.error("Error updating admin:", error);
+      
       const errorMsg = error?.response?.data?.message || "Error updating admin.";
       setError(errorMsg);
       toast.error(errorMsg);

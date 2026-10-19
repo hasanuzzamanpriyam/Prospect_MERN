@@ -39,7 +39,7 @@ export default function VoucherRequests() {
       setTotalPages(response.data.totalPages || 1);
       setError("");
     } catch (err) {
-      // console.error("Error fetching voucher requests:", err);
+      
       setError("Failed to load voucher requests.");
     } finally {
       setLoading(false);

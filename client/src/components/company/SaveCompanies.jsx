@@ -141,10 +141,10 @@ export default function SaveCompanies() {
       // console.log("[SAVE COMPANIES] Mutation success:", data);
     },
     onError: (error) => {
-      // console.error("[SAVE COMPANIES] Mutation failed:", error);
-      // console.error("[SAVE COMPANIES] Error response:", error?.response);
-      // console.error("[SAVE COMPANIES] Error status:", error?.response?.status);
-      // console.error("[SAVE COMPANIES] Error data:", error?.response?.data);
+      
+      
+      
+      
       toast.error(error?.response?.data?.message || "Failed to save companies.");
     },
   });
@@ -194,7 +194,7 @@ export default function SaveCompanies() {
           const hasData = item.company || src.organization_name || src.companyName || src.company_name;
 
           if (!hasId || !hasData) {
-            // console.warn("[SaveCompanies] Filtering out invalid item:", {
+            
             //   hasId,
             //   hasData,
             //   _id: item._id,
@@ -307,7 +307,7 @@ export default function SaveCompanies() {
       setSelectedList([]);
       clearCheckedItems();
     } catch (err) {
-      // console.error("Confirm save failed:", err);
+      
       if (err.response?.data?.error !== "INSUFFICIENT_FUNDS") {
         toast.error(err.response?.data?.message || err.message || "Unable to complete save");
       }

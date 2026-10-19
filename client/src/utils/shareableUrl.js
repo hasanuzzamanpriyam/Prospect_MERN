@@ -28,7 +28,7 @@ export const encodeStateToUrl = (filters, excludedFilters, visibleColumns) => {
 
     return `${baseUrl}${searchPath}?state=${compressed}`;
   } catch (error) {
-    // console.error("Error encoding state to URL:", error);
+    
     return null;
   }
 };
@@ -47,7 +47,7 @@ export const decodeStateFromUrl = (stateParam) => {
     const state = JSON.parse(decompressed);
     return state;
   } catch (error) {
-    // console.error("Error decoding state from URL:", error);
+    
     return null;
   }
 };

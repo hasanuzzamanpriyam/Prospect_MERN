@@ -40,7 +40,7 @@ function ContactSidebar() {
           setLists(res.data.filter((list) => list.type === "contacts"));
         }
       } catch (err) {
-        // console.error("Failed to load lists", err);
+        
       }
     };
 
