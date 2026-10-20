@@ -1,7 +1,20 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+let stripe = null;
+
+function getStripe() {
+  if (!stripe && process.env.STRIPE_SECRET_KEY) {
+    stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+  }
+  return stripe;
+}
+
 const transactionService = require("./transactionService");
 
 const createPaymentIntent = async (items) => {
+  const stripeInstance = getStripe();
+  if (!stripeInstance) {
+    throw new Error("Stripe not configured - missing STRIPE_SECRET_KEY");
+  }
+  
   const lineItems = items.map((item) => ({
     price_data: {
       currency: "usd",
@@ -11,7 +24,7 @@ const createPaymentIntent = async (items) => {
     quantity: item.quantity || 1,
   }));
 
-  return await stripe.checkout.sessions.create({
+  return await stripeInstance.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
@@ -21,7 +34,12 @@ const createPaymentIntent = async (items) => {
 };
 
 const handleWebhook = async (signature, body) => {
-  const event = stripe.webhooks.constructEvent(
+  const stripeInstance = getStripe();
+  if (!stripeInstance) {
+    throw new Error("Stripe not configured - missing STRIPE_SECRET_KEY");
+  }
+  
+  const event = stripeInstance.webhooks.constructEvent(
     body,
     signature,
     process.env.STRIPE_WEBHOOK_SECRET

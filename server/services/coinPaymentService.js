@@ -1,15 +1,26 @@
-const CoinPayments = require("coinpayments");
+let coinPayments = null;
 
-const coinPayments = new CoinPayments({
-  key: process.env.COINPAYMENTS_PUBLIC_KEY, // Replace with your CoinPayments public key
-  secret: process.env.COINPAYMENTS_PRIVATE_KEY, // Replace with your CoinPayments private key
-});
+function getCoinPayments() {
+  if (!coinPayments && process.env.COINPAYMENTS_PUBLIC_KEY && process.env.COINPAYMENTS_PRIVATE_KEY) {
+    const CoinPayments = require("coinpayments");
+    coinPayments = new CoinPayments({
+      key: process.env.COINPAYMENTS_PUBLIC_KEY,
+      secret: process.env.COINPAYMENTS_PRIVATE_KEY,
+    });
+  }
+  return coinPayments;
+}
 
 const createCoinPayment = async ({ amount, currency, email, item_name }) => {
-  return await coinPayments.createTransaction({
+  const cp = getCoinPayments();
+  if (!cp) {
+    throw new Error("CoinPayments not configured - missing COINPAYMENTS_PUBLIC_KEY or COINPAYMENTS_PRIVATE_KEY");
+  }
+  
+  return await cp.createTransaction({
     amount,
-    currency: "USD", // Setting primary currency (usually USD)
-    currency2: "BTC", // Target currency, e.g., BTC
+    currency: "USD",
+    currency2: "BTC",
     buyer_email: email,
     item_name,
     ipn_url: "https://server.prospct.io/app/payment/coinpayments/ipn",

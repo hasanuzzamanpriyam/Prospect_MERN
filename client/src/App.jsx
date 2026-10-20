@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import useStore from "./store/store";
-import { useEffect, Suspense, lazy } from "react";
+import { useEffect, Suspense, lazy, useMemo } from "react";
 import { Navigate } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 const clientId =
@@ -17,6 +17,13 @@ import useNotificationSocket from "./utils/useNotificationSocket";
 import AuthorizedRoute from "./components/layout/AuthorizedRoute";
 import RequiredAuth from "./components/layout/RequiredAuth";
 import SmartRedirect from "./components/layout/SmartRedirect";
+
+// New features
+import { KeyboardShortcutsHelp } from "./components/common/KeyboardShortcutsHelp";
+import { useShortcutsHelp } from "./hooks/useKeyboardShortcuts";
+import { SHORTCUT_SETS, useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
+import { CreditWarningBanner } from "./components/common/CreditWarningBanner";
+import { CreditWarningBanner as CreditWarningBannerInline } from "./components/common/CreditWarningBanner";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -94,7 +101,7 @@ const LoadingFallback = () => (
 );
 
 function App() {
-  const { isLoggedIn, isAdminLoggedIn } = useStore();
+  const { isLoggedIn, isAdminLoggedIn, credits, user, teamRole } = useStore();
 
   // Initialize theme on app load
   useEffect(() => {
@@ -125,6 +132,73 @@ function App() {
   // Listen for server-pushed notifications via Socket.io
   useNotificationSocket();
 
+  // Keyboard shortcuts help
+  const { showHelp, toggleHelp, closeHelp } = useShortcutsHelp();
+
+  // Global keyboard shortcuts
+  const globalShortcuts = useMemo(() => SHORTCUT_SETS.global({
+    onCommandPalette: () => {},
+    onFocusSearch: () => {
+      const searchInput = document.querySelector('input[placeholder*="search" i], input[placeholder*="Search" i]');
+      if (searchInput) searchInput.focus();
+    },
+    onGoHome: () => window.location.href = '/dashboard',
+    onGoSearch: () => window.location.href = '/search',
+    onGoContacts: () => window.location.href = '/contacts',
+    onGoLists: () => window.location.href = '/lists',
+    onGoCompanies: () => window.location.href = '/companies',
+    onGoBilling: () => window.location.href = '/plans-and-billings',
+    onGoAdmin: () => window.location.href = '/admin/dashboard',
+    onShowHelp: toggleHelp,
+  }), [toggleHelp]);
+
+  useKeyboardShortcuts(globalShortcuts, [toggleHelp]);
+
+  // Search page keyboard shortcuts (when on search page)
+  const searchShortcuts = useMemo(() => SHORTCUT_SETS.search({
+    onFocusSearch: () => {
+      const searchInput = document.querySelector('input[placeholder*="search" i], input[placeholder*="Search" i]');
+      if (searchInput) searchInput.focus();
+    },
+    onEscape: () => {},
+    onNext: () => {},
+    onPrev: () => {},
+    onSelect: () => {},
+    onGoHome: () => window.location.href = '/dashboard',
+    onGoSearch: () => window.location.href = '/search',
+    onGoContacts: () => window.location.href = '/contacts',
+    onGoLists: () => window.location.href = '/lists',
+    onGoCompanies: () => window.location.href = '/companies',
+    onShowHelp: toggleHelp,
+  }), [toggleHelp]);
+
+  useKeyboardShortcuts(searchShortcuts, [toggleHelp]);
+
+  // Profile page keyboard shortcuts
+  const profileShortcuts = useMemo(() => SHORTCUT_SETS.profile({
+    onEdit: () => {},
+    onCopyLinkedIn: () => {},
+    onVerifyEmail: () => {},
+    onVerifyPhone: () => {},
+    onSave: () => {},
+    onExport: () => {},
+    onClose: () => {},
+  }), []);
+
+  useKeyboardShortcuts(profileShortcuts, []);
+
+  // Lists page keyboard shortcuts
+  const listShortcuts = useMemo(() => SHORTCUT_SETS.lists({
+    onNewList: () => {},
+    onNewFolder: () => {},
+    onSelectAll: () => {},
+    onDeselectAll: () => {},
+    onDelete: () => {},
+    onClearSelection: () => {},
+  }), []);
+
+  useKeyboardShortcuts(listShortcuts, []);
+
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <QueryClientProvider client={queryClient}>
@@ -144,6 +218,12 @@ function App() {
                 theme="colored"
                 transition={Bounce}
               />
+              {/* Credit Warning Banner - shows at top when credits are low */}
+              <CreditWarningBanner />
+              
+              {/* Keyboard Shortcuts Help Modal */}
+              <KeyboardShortcutsHelp isOpen={showHelp} onClose={closeHelp} />
+              
               <Routes>
                 <Route path="/team/join/:token" element={<JoinTeam />} />
                 {/* Public auth routes - accessible even with old tokens */}
