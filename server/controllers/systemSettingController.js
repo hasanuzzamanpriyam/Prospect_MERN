@@ -75,6 +75,16 @@ exports.getSettings = async (req, res) => {
 // GET public settings (no auth required)
 exports.getPublicSettings = async (req, res) => {
   try {
+    // Check if MongoDB is connected
+    const mongoose = require("mongoose");
+    if (mongoose.connection.readyState !== 1) {
+      // Return defaults when DB is not connected
+      return res.json({
+        loginHeroStat: "200,00+",
+        loginSwiperSlides: [],
+      });
+    }
+    
     let settings = await SystemSetting.findOne({});
     if (!settings) {
       settings = new SystemSetting({
@@ -98,13 +108,33 @@ exports.getPublicSettings = async (req, res) => {
 
     return res.json(publicFields);
   } catch (err) {
-    res.status(500).json({ message: "Failed to fetch public settings" });
+    console.error("[getPublicSettings] Error:", err);
+    // Return defaults on any error
+    return res.json({
+      loginHeroStat: "200,00+",
+      loginSwiperSlides: [],
+    });
   }
 };
 
 // GET layout order (public)
 exports.getLayoutOrder = async (req, res) => {
   try {
+    // Check if MongoDB is connected
+    const mongoose = require("mongoose");
+    if (mongoose.connection.readyState !== 1) {
+      // Return defaults when DB is not connected
+      return res.json({
+        paymentMethods: [
+          { title: "Credit/Debit Card (alternative)", src: "/images/payment-method/Visa-Mastercard.webp" },
+          { title: "Pay Pro Global", src: "/images/payment-method/payproglobal.jfif" },
+          { title: "Heleket", src: "/images/payment-method/heleket.png" },
+          { title: "Fast Spring", src: "/images/payment-method/fast-spring.png" },
+        ],
+        paymentRedirectMode: "same-tab",
+      });
+    }
+    
     let settings = await SystemSetting.findOne({});
     if (!settings) {
       settings = new SystemSetting({

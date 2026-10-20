@@ -613,6 +613,15 @@ const authController = {
 
   adminLogin: async (req, res) => {
     try {
+      // Check if MongoDB is connected
+      const mongoose = require("mongoose");
+      if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ 
+          success: false, 
+          message: "Service temporarily unavailable. Database not connected." 
+        });
+      }
+      
       const { email, password } = req.body;
 
       if (!email || !password) {

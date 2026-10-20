@@ -3,7 +3,17 @@ const { createClient } = require('redis');
 let client = null;
 let hasGivenUp = false;
 
+// Skip Redis entirely for local development if not configured
+const REDIS_ENABLED = process.env.REDIS_HOST && process.env.REDIS_PORT && 
+                      process.env.REDIS_HOST !== 'disabled' && 
+                      process.env.REDIS_HOST !== 'false';
+
 const createRedisClient = () => {
+    if (!REDIS_ENABLED) {
+        console.log('[REDIS] Disabled for local development (set REDIS_HOST to enable)');
+        return null;
+    }
+    
     const newClient = createClient({
         password: process.env.REDIS_PASSWORD,
         socket: {
@@ -51,6 +61,12 @@ client = createRedisClient();
 let isConnecting = false;
 
 const connectWithRetry = async () => {
+    // Skip connection if Redis is disabled
+    if (!client) {
+        console.log('[REDIS] Skipping connection (disabled)');
+        return;
+    }
+    
     if (isConnecting || client.isOpen) {
         return;
     }
@@ -73,7 +89,7 @@ connectWithRetry();
 // Export a safe client that handles failures
 const safeClient = {
     get: async (...args) => {
-        if (!client.isOpen || hasGivenUp) return null;
+        if (!client || !client.isOpen || hasGivenUp) return null;
         try {
             return await client.get(...args);
         } catch (err) {
@@ -82,7 +98,7 @@ const safeClient = {
         }
     },
     set: async (...args) => {
-        if (!client.isOpen || hasGivenUp) return;
+        if (!client || !client.isOpen || hasGivenUp) return;
         try {
             return await client.set(...args);
         } catch (err) {
@@ -91,7 +107,7 @@ const safeClient = {
     },
     // SCAN-based replacement for KEYS - non-blocking
     scanKeys: async (pattern) => {
-        if (!client.isOpen || hasGivenUp) return [];
+        if (!client || !client.isOpen || hasGivenUp) return [];
         try {
             const keys = [];
             for await (const key of client.scanIterator({ MATCH: pattern, COUNT: 100 })) {
@@ -109,7 +125,7 @@ const safeClient = {
         return safeClient.scanKeys(args[0]);
     },
     del: async (...args) => {
-        if (!client.isOpen || hasGivenUp) return;
+        if (!client || !client.isOpen || hasGivenUp) return;
         try {
             return await client.del(...args);
         } catch (err) {
@@ -117,33 +133,33 @@ const safeClient = {
         }
     },
     exists: async (key) => {
-        if (!client.isOpen || hasGivenUp) return 0;
+        if (!client || !client.isOpen || hasGivenUp) return 0;
         try { return await client.exists(key); } catch { return 0; }
     },
     sCard: async (key) => {
-        if (!client.isOpen || hasGivenUp) return 0;
+        if (!client || !client.isOpen || hasGivenUp) return 0;
         try { return await client.sCard(key); } catch { return 0; }
     },
     sAdd: async (key, members) => {
-        if (!client.isOpen || hasGivenUp) return;
+        if (!client || !client.isOpen || hasGivenUp) return;
         try { return await client.sAdd(key, members); } catch { }
     },
     sInterStore: async (dest, key1, key2) => {
-        if (!client.isOpen || hasGivenUp) return;
+        if (!client || !client.isOpen || hasGivenUp) return;
         try { return await client.sInterStore(dest, key1, key2); } catch { }
     },
     expire: async (key, ttl) => {
-        if (!client.isOpen || hasGivenUp) return;
+        if (!client || !client.isOpen || hasGivenUp) return;
         try { return await client.expire(key, ttl); } catch { }
     },
     info: async (section) => {
-        if (!client.isOpen || hasGivenUp) return '';
+        if (!client || !client.isOpen || hasGivenUp) return '';
         try { return await client.info(section); } catch { return ''; }
     },
-    isOpen: () => client.isOpen && !hasGivenUp,
-    connect: () => client.connect(),
-    on: (...args) => client.on(...args),
-    disconnect: () => client.disconnect()
+    isOpen: () => client?.isOpen && !hasGivenUp,
+    connect: () => client?.connect(),
+    on: (...args) => client?.on(...args),
+    disconnect: () => client?.disconnect()
 };
 
 module.exports = safeClient;

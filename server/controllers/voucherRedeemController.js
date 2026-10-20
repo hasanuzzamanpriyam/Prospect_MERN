@@ -108,6 +108,13 @@ function logCreditLedger(userId, deal, referenceId) {
 
 async function findVoucherByIdentifier(tokenOrCode) {
   if (!tokenOrCode) return null;
+  
+  // Check if MongoDB is connected
+  const mongoose = require("mongoose");
+  if (mongoose.connection.readyState !== 1) {
+    return null;
+  }
+  
   let voucher = await Voucher.findOne({ redeemToken: tokenOrCode.trim() });
   if (!voucher) {
     voucher = await Voucher.findOne({ voucherCode: tokenOrCode.trim() });
@@ -171,6 +178,15 @@ async function validateVoucher(tokenOrCode) {
 const voucherRedeemController = {
   validateVoucher: async (req, res) => {
     try {
+      // Check if MongoDB is connected
+      const mongoose = require("mongoose");
+      if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ 
+          success: false, 
+          message: "Service temporarily unavailable. Database not connected." 
+        });
+      }
+      
       const { code, token } = req.params;
       const identifier = token || code;
       if (!identifier) {
