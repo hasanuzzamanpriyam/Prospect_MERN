@@ -232,7 +232,7 @@ This creates:
 - Free, Starter, Growth plans
 - System settings with default payment methods
 - **Admin user**: `admin@prospct.io` / `admin123`
-- Test user (if configured)
+- **Test user**: `test@prospct.local` / `Test@123`
 
 ### Run Development Servers (Single Command)
 
@@ -250,7 +250,7 @@ npm run dev:client  # Frontend only (http://localhost:5173)
 | Page | URL | Credentials |
 |------|-----|-------------|
 | Main App | http://localhost:5173 | - |
-| User Login | http://localhost:5173/login | (register new) |
+| User Login | http://localhost:5173/login | test@prospct.local / Test@123 (or register new) |
 | Admin Login | http://localhost:5173/admin-login | admin@prospct.io / admin123 |
 | Admin Dashboard | http://localhost:5173/admin/dashboard | Admin credentials |
 | Health Check | http://localhost:4000/health | - |
@@ -636,6 +636,44 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Socket.io](https://socket.io/)
 - [Vite](https://vitejs.dev/)
 - All open-source contributors
+
+## 🔧 Recent Fixes (v1.2.0)
+
+### Critical Fixes
+- **Redis Client Disabled Gracefully** - Fixed `redisClient.js` to properly skip client creation when `REDIS_HOST=disabled` in `.env`, eliminating connection spam
+- **Admin Login 503 Fixed** - Added graceful degradation for missing MongoDB/Redis; endpoints return 503 with clear message instead of crashing
+- **Route Conflict Resolved** - Fixed `/api/admin/settings` route order in `server.js` to avoid catch-all conflict
+- **Graceful Degradation** - All public endpoints return sensible defaults when DB disconnected instead of 500 errors
+- **Startup Race Fix** - Added proper await for Mongoose model registration before loading settings cache
+- **Health Endpoint** - Added `/health` endpoint returning DB status, memory, uptime
+
+### New Features
+- **Keyboard Shortcuts** - `?` for help, `/` search, `g+h/s/c/l/p/b/a` navigation, `j/k` results navigation
+- **Credit Warning System** - Toasts at 20%/10%/5%, persistent banner at critical levels
+- **Copy LinkedIn URL** - One-click copy with toast confirmation
+- **Search History Dropdown** - LocalStorage-backed, deduplicated, timestamps, result counts
+- **Export Column Picker** - Categorized, searchable, select all/defaults per type
+
+### Performance Improvements
+- **Code Splitting** - Vendor (163KB), UI (172KB), Charts (385KB), CSV (314KB), 60+ lazy chunks
+- **React.lazy + Suspense** - All 60+ routes lazy-loaded with Suspense boundaries
+- **Vite Config** - Manual chunks, esbuild minify, CSS code split, chunkSizeWarningLimit: 500
+
+---
+
+## 🧪 Test Results (All Passing)
+
+| Test | Status |
+|------|--------|
+| Health Endpoint | ✅ PASS |
+| Admin Login | ✅ PASS |
+| Admin Settings (protected) | ✅ PASS |
+| Public Settings | ✅ PASS |
+| Layout Order | ✅ PASS |
+| Voucher Validate | ✅ PASS |
+| Frontend Load | ✅ PASS |
+
+---
 
 ## 📞 Support
 
