@@ -5,57 +5,51 @@ let hasGivenUp = false;
 
 // Skip Redis entirely for local development if not configured
 const REDIS_ENABLED = process.env.REDIS_HOST && process.env.REDIS_PORT && 
-                      process.env.REDIS_HOST !== 'disabled' && 
-                      process.env.REDIS_HOST !== 'false';
+                      process.env.REDIS_HOST.trim().toLowerCase() !== 'disabled' && 
+                      process.env.REDIS_HOST.trim().toLowerCase() !== 'false';
 
-const createRedisClient = () => {
-    if (!REDIS_ENABLED) {
-        console.log('[REDIS] Disabled for local development (set REDIS_HOST to enable)');
-        return null;
-    }
-    
-    const newClient = createClient({
-        password: process.env.REDIS_PASSWORD,
-        socket: {
-            host: process.env.REDIS_HOST,
-            port: parseInt(process.env.REDIS_PORT),
-            reconnectStrategy: (retries) => {
-                if (retries > 5) {
-                    console.error(`Redis: Too many reconnection attempts (${retries}), extending delay`);
-                    hasGivenUp = true;
-                    // Reset hasGivenUp after a long cooldown so it can try again later
-                    setTimeout(() => { hasGivenUp = false; }, 60000);
-                    return Math.min(retries * 200, 10000);
-                }
-                const delay = Math.min(retries * 100, 2000);
-                return delay;
+console.log('[REDIS] REDIS_ENABLED:', REDIS_ENABLED, 'REDIS_HOST:', process.env.REDIS_HOST);
+
+if (!REDIS_ENABLED) {
+    console.log('[REDIS] Completely disabled for local development - NO CLIENT WILL BE CREATED');
+    client = null;
+} else {
+    console.log('[REDIS] Creating Redis client...');
+    // Only create client if Redis is enabled
+    const createRedisClient = () => {
+        console.log('[REDIS] Creating new Redis client with host:', process.env.REDIS_HOST);
+        const newClient = createClient({
+            password: process.env.REDIS_PASSWORD,
+            socket: {
+                host: process.env.REDIS_HOST,
+                port: parseInt(process.env.REDIS_PORT),
             }
-        }
-    });
+        });
 
-    newClient.on('error', err => {
-        if (!err.message.includes('max number of clients')) {
-            console.error('Redis Connection Error:', err.message);
-        }
-    });
+        newClient.on('error', err => {
+            if (!err.message.includes('max number of clients')) {
+                console.error('Redis Connection Error:', err.message);
+            }
+        });
 
-    newClient.on('connect', () => {
-        hasGivenUp = false;
-        console.log('[REDIS] Connected successfully');
-    });
+        newClient.on('connect', () => {
+            hasGivenUp = false;
+            console.log('[REDIS] Connected successfully');
+        });
 
-    newClient.on('reconnecting', () => {
-        console.warn('[REDIS] Reconnecting...');
-    });
+        newClient.on('reconnecting', () => {
+            console.warn('[REDIS] Reconnecting...');
+        });
 
-    newClient.on('disconnect', () => {
-        console.warn('[REDIS] Disconnected');
-    });
+        newClient.on('disconnect', () => {
+            console.warn('[REDIS] Disconnected');
+        });
 
-    return newClient;
-};
+        return newClient;
+    };
 
-client = createRedisClient();
+    client = createRedisClient();
+}
 
 // Connect with retry logic
 let isConnecting = false;
@@ -63,7 +57,7 @@ let isConnecting = false;
 const connectWithRetry = async () => {
     // Skip connection if Redis is disabled
     if (!client) {
-        console.log('[REDIS] Skipping connection (disabled)');
+        console.log('[REDIS] connectWithRetry: client is null, skipping');
         return;
     }
     
@@ -84,6 +78,7 @@ const connectWithRetry = async () => {
 };
 
 // Connect asynchronously - don't block server startup
+console.log('[REDIS] Calling connectWithRetry...');
 connectWithRetry();
 
 // Export a safe client that handles failures
