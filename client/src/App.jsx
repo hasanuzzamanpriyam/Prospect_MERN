@@ -24,6 +24,8 @@ import { useShortcutsHelp } from "./hooks/useKeyboardShortcuts";
 import { SHORTCUT_SETS, useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { CreditWarningBanner } from "./components/common/CreditWarningBanner";
 import { CreditWarningBanner as CreditWarningBannerInline } from "./components/common/CreditWarningBanner";
+import { useBrandSettings } from "./hooks/useBrandSettings";
+import { BrandProvider } from "./context/BrandContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -132,6 +134,9 @@ function App() {
   // Listen for server-pushed notifications via Socket.io
   useNotificationSocket();
 
+  // Brand settings - fetch and apply globally
+  const { brandSettings, loading: brandLoading } = useBrandSettings();
+
   // Keyboard shortcuts help
   const { showHelp, toggleHelp, closeHelp } = useShortcutsHelp();
 
@@ -203,28 +208,29 @@ function App() {
     <GoogleOAuthProvider clientId={clientId}>
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={<LoadingFallback />}>
-          <StripeProvider>
-            <Router>
-              <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-                transition={Bounce}
-              />
-              {/* Credit Warning Banner - shows at top when credits are low */}
-              <CreditWarningBanner />
-              
-              {/* Keyboard Shortcuts Help Modal */}
-              <KeyboardShortcutsHelp isOpen={showHelp} onClose={closeHelp} />
-              
-              <Routes>
+          <BrandProvider>
+            <StripeProvider>
+              <Router>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="colored"
+                  transition={Bounce}
+                />
+                {/* Credit Warning Banner - shows at top when credits are low */}
+                <CreditWarningBanner />
+                
+                {/* Keyboard Shortcuts Help Modal */}
+                <KeyboardShortcutsHelp isOpen={showHelp} onClose={closeHelp} />
+                
+                <Routes>
                 <Route path="/team/join/:token" element={<JoinTeam />} />
                 {/* Public auth routes - accessible even with old tokens */}
                 <Route path="/reset-password" element={<ResetPassword />} />
@@ -343,6 +349,7 @@ function App() {
               </Routes>
             </Router>
           </StripeProvider>
+        </BrandProvider>
         </Suspense>
       </QueryClientProvider>
     </GoogleOAuthProvider>

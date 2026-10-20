@@ -5,22 +5,41 @@ const path = require("path");
 const BulkEmailFile = require("../models/BulkEmailFile");
 const { emitVerificationUpdate } = require("../utils/socket");
 
-// Email verification queue using Bull and Redis
-const emailVerificationQueue = new Queue("email-verification", {
-  redis: {
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD,
-    maxRetriesPerRequest: null,
-    retryStrategy(times) {
-      return Math.min(times * 50, 2000);
-    },
-  },
-});
+// Check if Redis is actually enabled (not disabled for local dev)
+const REDIS_ENABLED = process.env.REDIS_HOST &&
+  process.env.REDIS_HOST.trim().toLowerCase() !== "disabled" &&
+  process.env.REDIS_HOST.trim().toLowerCase() !== "false";
 
-emailVerificationQueue.on("error", (err) => {
-  console.error("Redis connection error:", err);
-});
+// Email verification queue using Bull and Redis
+// When Redis is disabled, create a stub that no-ops gracefully
+let emailVerificationQueue;
+if (REDIS_ENABLED) {
+  emailVerificationQueue = new Queue("email-verification", {
+    redis: {
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+      password: process.env.REDIS_PASSWORD,
+      maxRetriesPerRequest: null,
+      retryStrategy(times) {
+        return Math.min(times * 50, 2000);
+      },
+    },
+  });
+  emailVerificationQueue.on("error", (err) => {
+    console.error("Redis connection error:", err);
+  });
+} else {
+  console.log("[emailVerificationQueue] Redis disabled — using in-memory stub");
+  // Stub: no-op queue so callers don't crash when Redis is unavailable
+  emailVerificationQueue = {
+    add: async (name, data) => {
+      console.warn("[emailVerificationQueue] Redis disabled — job not queued:", name);
+      return { id: "stub", data };
+    },
+    process: () => {},
+    on: () => {},
+  };
+}
 
 // Function to poll for email verification status
 const pollVerificationStatus = async (

@@ -91,6 +91,25 @@ const SystemSettingSchema = new mongoose.Schema(
       enum: ["same-tab", "new-tab", "popup"],
       default: "same-tab",
     },
+
+    // Brand Identity (editable via admin panel)
+    brandName: { type: String, default: "PROSPCT" },
+    brandTagline: { type: String, default: "B2B Prospect Intelligence Platform" },
+    brandLogoUrl: { type: String, default: "/images/logo.png" },
+    brandFaviconUrl: { type: String, default: "/favicon.ico" },
+    brandPrimaryColor: { type: String, default: "#7c3aed" }, // purple-600
+    brandSecondaryColor: { type: String, default: "#06b6d4" }, // cyan-500
+    brandFontFamily: { type: String, default: "Inter" },
+    brandLogoLightUrl: { type: String, default: "/images/logo-light.png" },
+    brandLogoDarkUrl: { type: String, default: "/images/logo-dark.png" },
+    copyrightText: { type: String, default: "Built with ❤️ by the PROSPCT Team" },
+    metaTitle: { type: String, default: "PROSPCT - B2B Prospect Intelligence Platform" },
+    metaDescription: { type: String, default: "Comprehensive B2B prospect intelligence platform with advanced search, team collaboration, and payment integrations." },
+    ogImageUrl: { type: String, default: "/images/og-image.png" },
+    twitterHandle: { type: String, default: "@prospct" },
+    supportEmail: { type: String, default: "support@prospct.io" },
+    privacyPolicyUrl: { type: String, default: "/privacy" },
+    termsOfServiceUrl: { type: String, default: "/terms" },
   },
   { timestamps: true },
 );

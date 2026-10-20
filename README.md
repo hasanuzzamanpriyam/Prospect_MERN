@@ -23,6 +23,7 @@ A comprehensive B2B prospect intelligence platform built with the MERN stack (Mo
 - **Plan Management** - Create/edit pricing plans (Free, Starter, Growth, Custom)
 - **Subscription & Billing** - View transactions, subscriptions, payment history
 - **System Settings** - Configure SMTP, payment gateways, OAuth, feature flags, payment methods, UI branding
+- **Dynamic Brand Identity** - Admin can change site name, tagline, logo (light/dark), favicon, primary/secondary colors, font, SEO meta tags (title, description, OG image, Twitter handle), copyright text, support email, and legal links (privacy policy, terms of service). Changes apply live across the app — theme colors update via CSS variables, `document.title`/favicon/meta tags are injected at runtime, and `/robots.txt` is generated dynamically from these settings
 - **Analytics Dashboard** - Revenue charts, user growth, usage metrics with Recharts
 - **Special Deals & Vouchers** - Create deals, approve redemption requests, manage voucher generation API
 

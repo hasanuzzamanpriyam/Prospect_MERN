@@ -104,6 +104,24 @@ exports.getPublicSettings = async (req, res) => {
       loginSwiperSlides: Array.isArray(settings.loginSwiperSlides)
         ? settings.loginSwiperSlides
         : [],
+      // Brand Identity fields
+      brandName: settings.brandName || "PROSPCT",
+      brandTagline: settings.brandTagline || "B2B Prospect Intelligence Platform",
+      brandLogoUrl: settings.brandLogoUrl || "/images/logo.png",
+      brandFaviconUrl: settings.brandFaviconUrl || "/favicon.ico",
+      brandPrimaryColor: settings.brandPrimaryColor || "#7c3aed",
+      brandSecondaryColor: settings.brandSecondaryColor || "#06b6d4",
+      brandFontFamily: settings.brandFontFamily || "Inter",
+      brandLogoLightUrl: settings.brandLogoLightUrl || "/images/logo-light.png",
+      brandLogoDarkUrl: settings.brandLogoDarkUrl || "/images/logo-dark.png",
+      metaTitle: settings.metaTitle || "PROSPCT - B2B Prospect Intelligence Platform",
+      metaDescription: settings.metaDescription || "Comprehensive B2B prospect intelligence platform",
+      ogImageUrl: settings.ogImageUrl || "/images/og-image.png",
+      twitterHandle: settings.twitterHandle || "@prospct",
+      copyrightText: settings.copyrightText || "Built with ❤️ by the PROSPCT Team",
+      supportEmail: settings.supportEmail || "support@prospct.io",
+      privacyPolicyUrl: settings.privacyPolicyUrl || "/privacy",
+      termsOfServiceUrl: settings.termsOfServiceUrl || "/terms",
     };
 
     return res.json(publicFields);
@@ -113,6 +131,21 @@ exports.getPublicSettings = async (req, res) => {
     return res.json({
       loginHeroStat: "200,00+",
       loginSwiperSlides: [],
+      brandName: "PROSPCT",
+      brandTagline: "B2B Prospect Intelligence Platform",
+      brandLogoUrl: "/images/logo.png",
+      brandFaviconUrl: "/favicon.ico",
+      brandPrimaryColor: "#7c3aed",
+      brandSecondaryColor: "#06b6d4",
+      brandFontFamily: "Inter",
+      metaTitle: "PROSPCT - B2B Prospect Intelligence Platform",
+      metaDescription: "Comprehensive B2B prospect intelligence platform",
+      ogImageUrl: "/images/og-image.png",
+      twitterHandle: "@prospct",
+      copyrightText: "Built with ❤️ by the PROSPCT Team",
+      supportEmail: "support@prospct.io",
+      privacyPolicyUrl: "/privacy",
+      termsOfServiceUrl: "/terms",
     });
   }
 };
@@ -160,7 +193,7 @@ exports.getLayoutOrder = async (req, res) => {
       });
       await settings.save();
     }
-
+    
     // ensure paymentMethods is always set and non-empty
     if (!settings.paymentMethods || !Array.isArray(settings.paymentMethods) || settings.paymentMethods.length === 0) {
       settings.paymentMethods = [
@@ -186,9 +219,29 @@ exports.getLayoutOrder = async (req, res) => {
 
     const cleanMethods = stripRemovedMethods(settings.paymentMethods);
     const redirectMode = settings.paymentRedirectMode || "same-tab";
+    
+    // Include brand identity fields
     return res.json({ 
       paymentMethods: cleanMethods,
       paymentRedirectMode: redirectMode,
+      // Brand Identity fields
+      brandName: settings.brandName || "PROSPCT",
+      brandTagline: settings.brandTagline || "B2B Prospect Intelligence Platform",
+      brandLogoUrl: settings.brandLogoUrl || "/images/logo.png",
+      brandFaviconUrl: settings.brandFaviconUrl || "/favicon.ico",
+      brandPrimaryColor: settings.brandPrimaryColor || "#7c3aed",
+      brandSecondaryColor: settings.brandSecondaryColor || "#06b6d4",
+      brandFontFamily: settings.brandFontFamily || "Inter",
+      brandLogoLightUrl: settings.brandLogoLightUrl || "/images/logo-light.png",
+      brandLogoDarkUrl: settings.brandLogoDarkUrl || "/images/logo-dark.png",
+      metaTitle: settings.metaTitle || "PROSPCT - B2B Prospect Intelligence Platform",
+      metaDescription: settings.metaDescription || "Comprehensive B2B prospect intelligence platform",
+      ogImageUrl: settings.ogImageUrl || "/images/og-image.png",
+      twitterHandle: settings.twitterHandle || "@prospct",
+      copyrightText: settings.copyrightText || "Built with ❤️ by the PROSPCT Team",
+      supportEmail: settings.supportEmail || "support@prospct.io",
+      privacyPolicyUrl: settings.privacyPolicyUrl || "/privacy",
+      termsOfServiceUrl: settings.termsOfServiceUrl || "/terms",
     });
   } catch (err) {
     console.error("[getLayoutOrder] Error:", err);
@@ -235,6 +288,24 @@ exports.updateSettings = async (req, res) => {
       "smtpFrom",
         "receiverEmail",
 
+      // Brand Identity
+      "brandName",
+      "brandTagline",
+      "brandLogoUrl",
+      "brandFaviconUrl",
+      "brandPrimaryColor",
+      "brandSecondaryColor",
+      "brandFontFamily",
+      "brandLogoLightUrl",
+      "brandLogoDarkUrl",
+      "copyrightText",
+      "metaTitle",
+      "metaDescription",
+      "ogImageUrl",
+      "twitterHandle",
+      "supportEmail",
+      "privacyPolicyUrl",
+      "termsOfServiceUrl",
     ];
 
     // Filter updates to only allowed fields

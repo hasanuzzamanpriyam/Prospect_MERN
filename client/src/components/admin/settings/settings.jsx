@@ -81,6 +81,25 @@ export default function AdminSettings() {
       "receiverEmail",
     ],
     "UI & Branding": ["loginHeroStat", "loginSwiperSlides"],
+    "Brand Identity": [
+      "brandName",
+      "brandTagline",
+      "brandLogoUrl",
+      "brandFaviconUrl",
+      "brandPrimaryColor",
+      "brandSecondaryColor",
+      "brandFontFamily",
+      "brandLogoLightUrl",
+      "brandLogoDarkUrl",
+      "copyrightText",
+      "metaTitle",
+      "metaDescription",
+      "ogImageUrl",
+      "twitterHandle",
+      "supportEmail",
+      "privacyPolicyUrl",
+      "termsOfServiceUrl",
+    ],
   };
 
   const fetchSettings = async () => {
@@ -552,6 +571,13 @@ export default function AdminSettings() {
                     color: "text-sky-500",
                     bg: "bg-sky-50 dark:bg-sky-900/20",
                   },
+                  {
+                    title: "Brand Identity",
+                    desc: "Name, Logo, Colors, Fonts, Meta",
+                    icon: FiSettings,
+                    color: "text-indigo-500",
+                    bg: "bg-indigo-50 dark:bg-indigo-900/20",
+                  },
                 ].map((cat) => (
                   <button
                     key={cat.title}
@@ -973,6 +999,69 @@ export default function AdminSettings() {
                   </div>
                 </>
               )}
+
+              {/* Brand Identity Category */}
+              {activeCategory === "Brand Identity" && (
+                <>
+                  <SectionHeader icon={FiSettings} title="Brand Identity" />
+                  <div className="p-6 rounded-2xl border border-gray-200 dark:border-gray-700 space-y-8">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <SettingInput name="brandName" label="Brand Name" />
+                      <SettingInput name="brandTagline" label="Tagline" />
+                      <SettingInput name="brandPrimaryColor" label="Primary Color" type="color" />
+                      <SettingInput name="brandSecondaryColor" label="Secondary Color" type="color" />
+                      <SettingInput name="brandFontFamily" label="Font Family" />
+                      <SettingInput name="brandLogoUrl" label="Logo URL" />
+                      <SettingInput name="brandLogoLightUrl" label="Logo URL (Light Header)" />
+                      <SettingInput name="brandLogoDarkUrl" label="Logo URL (Dark Header)" />
+                      <SettingInput name="brandFaviconUrl" label="Favicon URL" />
+                    </div>
+
+                    <div className="p-6 bg-indigo-50/30 dark:bg-indigo-900/10 rounded-2xl border border-indigo-100 dark:border-indigo-900/30">
+                      <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+                        SEO & Meta
+                      </h3>
+                      <p className="text-sm text-gray-500 mb-4">
+                        Configure meta tags for social sharing and search engines.
+                      </p>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <SettingInput name="metaTitle" label="Meta Title" />
+                        <SettingInput name="metaDescription" label="Meta Description" />
+                        <SettingInput name="ogImageUrl" label="Open Graph Image URL" />
+                        <SettingInput name="twitterHandle" label="Twitter Handle" />
+                      </div>
+                    </div>
+
+                    <div className="p-6 bg-amber-50/30 dark:bg-amber-900/10 rounded-2xl border border-amber-100 dark:border-amber-900/30">
+                      <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+                        Legal & Contact
+                      </h3>
+                      <p className="text-sm text-gray-500 mb-4">
+                        Configure legal links and contact information.
+                      </p>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <SettingInput name="supportEmail" label="Support Email" type="email" />
+                        <SettingInput name="copyrightText" label="Copyright Text" />
+                        <SettingInput name="privacyPolicyUrl" label="Privacy Policy URL" />
+                        <SettingInput name="termsOfServiceUrl" label="Terms of Service URL" />
+                      </div>
+                    </div>
+
+                    {/* Category Actions */}
+                    <div className="flex justify-end gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
+                      <button
+                        onClick={() => handleSaveCategory("Brand Identity")}
+                        disabled={savingCategory === "Brand Identity"}
+                        className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 hover:opacity-90 disabled:opacity-50 text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-indigo-500/20"
+                      >
+                        <FiSave className={savingCategory === "Brand Identity" ? "animate-bounce" : ""} />
+                        {savingCategory === "Brand Identity" ? "Saving..." : "Save All"}
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+
             </div>
           )}
         </div>

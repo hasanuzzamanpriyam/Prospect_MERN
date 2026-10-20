@@ -48,6 +48,7 @@ const companyRoutes = require("./routes/companyRoutes");
 const redemptionRoutes = require("./routes/redemptionRoutes");
 const voucherRoutes = require("./routes/voucherRoutes");
 const voucherRedeemRoutes = require("./routes/voucherRedeemRoutes");
+const robotsRoutes = require("./routes/robotsRoutes");
 const { startAutoRenewal } = require("./jobs/renewPackages");
 
 const app = express();
@@ -194,6 +195,9 @@ app.use("/api/companies", companyRoutes);
 
 /* -------------------- Root -------------------- */
 app.get("/", (req, res) => res.send("Server is working fine."));
+
+/* -------------------- Robots.txt (Dynamic) -------------------- */
+app.use("/robots.txt", robotsRoutes);
 
 /* -------------------- Health Check -------------------- */
 app.get("/health", (req, res) => {
