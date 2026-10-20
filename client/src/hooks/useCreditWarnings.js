@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo, useState } from 'react';
 import useStore from '../store/store';
 import toast from 'react-hot-toast';
 
@@ -27,11 +27,11 @@ export function useCreditWarnings() {
   // Get credits from user object
   const credits = user?.credits;
   
-  const [warningsShown, setWarningsShown] = useMemo(() => ({
+  const [warningsShown, setWarningsShown] = useState({
     warning: false,
     critical: false,
     danger: false,
-  }), []);
+  });
 
   // Get effective credits (owner's credits for team members)
   const effectiveCredits = useMemo(() => {
